@@ -29,10 +29,13 @@ done
 echo $myIndex;
 
 for((i=0;i<${#usedTags[@]};i++)); do
-        checkId="ASGofEC2$i";
-        if [[ ! "${usedTags[$i]}" =~ "${checkId}" ]]; then
-                availableTags[$i]=true;
-        fi
+        for((j=0;j<${#usedTags[@]};j++)); do
+                checkId="ASGofEC2$j";
+                if [[ ! "${usedTags[$i]}" =~ "${checkId}" ]]; then
+                        availableTags[$i]=true;
+                        break;
+                fi
+        done
 done
 echo ${availableTags[@]};
 
