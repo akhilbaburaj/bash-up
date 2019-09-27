@@ -53,7 +53,8 @@ if [[ $myFinalTag == false  ]]; then
                         break;
                 fi;
         done;
-   else
+fi
+if [[ $myFinalTag == false  ]]; then
         myFinalTag=ASGofEC2$((i+1));
 fi
 aws ec2 create-tags --resources $instanceId --tags Key=Name,Value=$myFinalTag --region $region
