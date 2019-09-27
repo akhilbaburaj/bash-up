@@ -49,6 +49,7 @@ printf "%s,"  ${sortedUntaggedList[@]};
 printf "\n"
 if [[ "${availableTags[$myIndex]}" == true ]]; then
         myFinalTag="ASGofEC2$myIndex";
+        echo "Assigned it directly";
 fi        
 #if [[ $myFinalTag == false  ]]; then
 #        for((i=$myIndex;$i>=0;i--)); do
@@ -64,6 +65,7 @@ if [[ $myFinalTag == false  ]]; then
                 if [[ "${availableTags[$i]}"  == true ]]; then  
                        if [[ "${sortedUntaggedList[$x]}" == "${instanceId}" ]]; then
                                 myFinalTag="ASGofEC2$i";
+                                echo "Assigned from unsorted";
                                 break;
                         fi;
                         x=$((x+1));
@@ -72,5 +74,6 @@ if [[ $myFinalTag == false  ]]; then
 fi
 if [[ $myFinalTag == false  ]]; then
         myFinalTag="ASGofEC2$i";
+        echo "assigned as there were no options";
 fi
 aws ec2 create-tags --resources $instanceId --tags Key=Name,Value=$myFinalTag --region $region
