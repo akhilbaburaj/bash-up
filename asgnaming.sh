@@ -57,7 +57,7 @@ fi
 #fi
 x=0;
 if [[ $myFinalTag == false  ]]; then
-        for((i=0;i<=${#usedTags[@]};i++)); do
+        for((i=0;i<${#usedTags[@]};i++)); do
                 if [[ ${availableTags[$i]}  == true ]]; then  
                        if [[ ${sortedUntaggedList[$x]} == ${instanceId} ]]; then
                                 myFinalTag=ASGofEC2$i;
