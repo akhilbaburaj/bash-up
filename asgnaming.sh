@@ -41,6 +41,9 @@ for((i=0;i<${#usedTags[@]};i++)); do
 done
 echo ${availableTags[@]};
 
+sortedUntaggedList=($(printf "%s\n"  ${untaggedInstance[@]} | sort -n))
+echo ${sortedUntaggedList[@]};
+
 if [[ ${availableTags[$myIndex]} == true ]]; then
         myFinalTag=ASGofEC2$myIndex;
 fi        
@@ -56,7 +59,7 @@ x=0;
 if [[ $myFinalTag == false  ]]; then
         for((i=0;i<=${#usedTags[@]};i++)); do
                 if [[ ${availableTags[$i]}  == true ]]; then  
-                       if [[ ${untaggedInstance[$x]} == ${instanceId} ]]; then
+                       if [[ ${sortedUntaggedList[$x]} == ${instanceId} ]]; then
                                 myFinalTag=ASGofEC2$i;
                                 break;
                         fi;
