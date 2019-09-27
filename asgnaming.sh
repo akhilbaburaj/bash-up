@@ -30,7 +30,7 @@ echo $myIndex;
 x=0;
 for((i=0;i<${#usedTags[@]};i++)); do
                 checkId="ASGofEC2$i";
-                if [[ "${usedTags[i]} == "ASGofEC2" ]]; then
+                if [[ "${usedTags[i]}" == "ASGofEC2" ]]; then
                         untaggedInstance[$x]=${InstanceId[$i]};
                         x=$((x+1));
                 fi
