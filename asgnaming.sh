@@ -55,12 +55,12 @@ fi
 x=0;
 if [[ $myFinalTag == false  ]]; then
         for((i=0;i<=${#usedTags[@]};i++)); do
-                if [[ ${availableTags[$i]}  == true ]]; then,  
+                if [[ ${availableTags[$i]}  == true ]]; then  
                        if [[ ${untaggedInstance[$x]} == ${instanceId} ]]; then
                                 myFinalTag=ASGofEC2$i;
                                 break;
                         fi;
-                        x=((x+1));
+                        x=$((x+1));
                 fi;
         done;
 fi
