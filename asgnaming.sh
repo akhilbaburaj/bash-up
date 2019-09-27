@@ -39,10 +39,11 @@ for((i=0;i<${#usedTags[@]};i++)); do
                 fi
                 
 done
-echo ${availableTags[@]};
-
+printf "%s,"  ${availableTags[@]} 
+printf "%s,"  ${untaggedInstance[@]} 
+echo $x
 sortedUntaggedList=($(printf "%s\n" ${untaggedInstance[@]} | sort -n))
-echo ${sortedUntaggedList[@]};
+printf "%s,"  ${sortedUntaggedList[@]};
 
 if [[ "${availableTags[$myIndex]}" == true ]]; then
         myFinalTag="ASGofEC2$myIndex";
