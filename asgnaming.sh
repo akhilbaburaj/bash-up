@@ -27,30 +27,40 @@ for((i=0;i<${#sortedInstanceList[@]};i++)); do
 done
 echo $myIndex;
 
+x=0;
 for((i=0;i<${#usedTags[@]};i++)); do
                 checkId="ASGofEC2$i";
+                if [[ "${usedTags[i]} == "ASGofEC2" ]]; then
+                        untaggedInstance[$x]=${InstanceId[$i]};
+                        x=$((x+1));
+                fi
                 if [[ ! "${usedTags[@]}" =~ "${checkId}" ]]; then
                         availableTags[$i]=true;
                 fi
+                
 done
 echo ${availableTags[@]};
 
 if [[ ${availableTags[$myIndex]} == true ]]; then
         myFinalTag=ASGofEC2$myIndex;
 fi        
+#if [[ $myFinalTag == false  ]]; then
+#        for((i=$myIndex;$i>=0;i--)); do
+#                if [[ ${availableTags[$i]}  == true ]]; then
+#                                myFinalTag=ASGofEC2$i;
+#                        break;
+#                fi;
+#        done;
+#fi
+x=0;
 if [[ $myFinalTag == false  ]]; then
-        for((i=$myIndex;$i>=0;i--)); do
-                if [[ ${availableTags[$i]}  == true ]]; then
+        for((i=0;i<=${#usedTags[@]};i++)); do
+                if [[ ${availableTags[$i]}  == true ]]; then,  
+                       if [[ ${untaggedInstance[$x]} == ${instanceId} ]]; then
                                 myFinalTag=ASGofEC2$i;
-                        break;
-                fi;
-        done;
-fi
-if [[ $myFinalTag == false  ]]; then
-        for((i=$myIndex;i<=${#usedTags[@]};i++)); do
-                if [[ ${availableTags[$i]}  == true ]]; then
-                        myFinalTag=ASGofEC2$i;
-                        break;
+                                break;
+                        fi;
+                        x=((x+1));
                 fi;
         done;
 fi
