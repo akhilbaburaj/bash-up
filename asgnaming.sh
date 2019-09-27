@@ -17,15 +17,15 @@ InstanceList=($(jq '.Tags[].ResourceId' /var/tmp/ec2tag.txt))
 echo ${InstanceList[@]}
 usedTags=($(jq '.Tags[].Value' /var/tmp/ec2tag.txt))
 echo ${usedTags[@]}
-sortedInstanceList=($(printf "%s\n"  ${InstanceList[@]} | sort -n))
-echo ${sortedInstanceList[@]}
-for((i=0;i<${#sortedInstanceList[@]};i++)); do
-        if [[ "$quotedId" == "${InstanceList[$i]}" ]]; then
-                myIndex=$i ;
-                break;
-        fi
-done
-echo $myIndex;
+#sortedInstanceList=($(printf "%s\n"  ${InstanceList[@]} | sort -n))
+#echo ${sortedInstanceList[@]}
+#for((i=0;i<${#sortedInstanceList[@]};i++)); do
+#        if [[ "$quotedId" == "${InstanceList[$i]}" ]]; then
+#                myIndex=$i ;
+#                break;
+#        fi
+#done
+#echo $myIndex;
 
 x=0;
 for((i=0;i<${#usedTags[@]};i++)); do
@@ -48,10 +48,10 @@ echo $x
 sortedUntaggedList=($(printf "%s\n" ${untaggedInstance[@]} | sort -n))
 printf "%s,"  ${sortedUntaggedList[@]};
 printf "\n"
-if [[ "${availableTags[$myIndex]}" == true ]]; then
-        myFinalTag="ASGofEC2$myIndex";
-        echo "Assigned it directly";
-fi        
+#if [[ "${availableTags[$myIndex]}" == true ]]; then
+#        myFinalTag="ASGofEC2$myIndex";
+#        echo "Assigned it directly";
+#fi        
 #if [[ $myFinalTag == false  ]]; then
 #        for((i=$myIndex;$i>=0;i--)); do
 #                if [[ "${availableTags[$i]}"  == true ]]; then
