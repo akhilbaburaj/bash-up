@@ -30,6 +30,7 @@ echo $myIndex;
 x=0;
 for((i=0;i<${#usedTags[@]};i++)); do
                 checkId="ASGofEC2$i";
+                echo -e "$i,${usedTags[i]}\n"
                 if [[ "${usedTags[i]}" == "ASGofEC2" ]]; then
                         untaggedInstance[$x]="${InstanceList[$i]}";
                         x=$((x+1));
@@ -63,7 +64,7 @@ x=0;
 if [[ $myFinalTag == false  ]]; then
         for((i=0;i<${#usedTags[@]};i++)); do
                 if [[ "${availableTags[$i]}"  == true ]]; then  
-                       if [[ "${sortedUntaggedList[$x]}" == "${instanceId}" ]]; then
+                       if [[ "${sortedUntaggedList[$x]}" == "${quotedId}" ]]; then
                                 myFinalTag="ASGofEC2$i";
                                 echo "Assigned from unsorted";
                                 break;
