@@ -37,22 +37,23 @@ echo ${availableTags[@]};
 
 if [[ ${availableTags[$myIndex]} == true ]]; then
         myFinalTag=ASGofEC2$myIndex;
-        break;
-elif [[ $myFinalTag == false  ]]; then
+fi        
+if [[ $myFinalTag == false  ]]; then
         for((i=$myIndex;$i>=0;i--)); do
                 if [[ ${availableTags[$i]}  == true ]]; then
                                 myFinalTag=ASGofEC2$i;
                         break;
                 fi;
         done;
-elif [[ $myFinalTag == false  ]]; then
+fi
+if [[ $myFinalTag == false  ]]; then
         for((i=$myIndex;i<=${#usedTags[@]};i++)); do
                 if [[ ${availableTags[$i]}  == true ]]; then
                         myFinalTag=ASGofEC2$i;
                         break;
                 fi;
         done;
-else
+   else
         myFinalTag=ASGofEC2$((i+1));
 fi
 aws ec2 create-tags --resources $instanceId --tags Key=Name,Value=$myFinalTag --region $region
