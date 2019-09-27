@@ -32,8 +32,6 @@ for((i=0;i<${#usedTags[@]};i++)); do
         checkId="ASGofEC2$i";
         if [[ ! "${usedTags[$i]}" =~ "${checkId}" ]]; then
                 availableTags[$i]=true;
-        else
-    			availableTags[$i]=false;
         fi
 done
 echo ${availableTags[@]};
