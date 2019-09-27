@@ -31,7 +31,7 @@ x=0;
 for((i=0;i<${#usedTags[@]};i++)); do
                 checkId="ASGofEC2$i";
                 if [[ "${usedTags[i]}" == "ASGofEC2" ]]; then
-                        untaggedInstance[$x]="${InstanceId[$i]}";
+                        untaggedInstance[$x]="${InstanceList[$i]}";
                         x=$((x+1));
                 fi
                 if [[ ! "${usedTags[@]}" =~ "${checkId}" ]]; then
