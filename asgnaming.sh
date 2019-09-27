@@ -19,8 +19,6 @@ usedTags=($(jq '.Tags[].Value' /var/tmp/ec2tag.txt))
 echo ${usedTags[@]}
 sortedInstanceList=($(printf "%s\n"  ${InstanceList[@]} | sort -n))
 echo ${sortedInstanceList[@]}
-sortedTagList=($(printf "%s\n"  ${usedTags[@]} | sort -n))
-echo ${sortedTagList[@]}
 for((i=0;i<${#sortedInstanceList[@]};i++)); do
         if [[ $quotedId == ${InstanceList[$i]} ]]; then
                 myIndex=$i ;
@@ -29,9 +27,9 @@ for((i=0;i<${#sortedInstanceList[@]};i++)); do
 done
 echo $myIndex;
 
-for((i=0;i<${#sortedTagList[@]};i+=)); do
+for((i=0;i<${#usedTags[@]};i++)); do
                 checkId="ASGofEC2$i";
-                if [[ ! "${sortedTagList[@]}" =~ "${checkId}" ]]; then
+                if [[ ! "${usedTags[@]}" =~ "${checkId}" ]]; then
                         availableTags[$i]=true;
                 fi
 done
