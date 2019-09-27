@@ -20,7 +20,7 @@ echo ${usedTags[@]}
 sortedInstanceList=($(printf "%s\n"  ${InstanceList[@]} | sort -n))
 echo ${sortedInstanceList[@]}
 for((i=0;i<${#sortedInstanceList[@]};i++)); do
-        if [[ $quotedId == ${InstanceList[$i]} ]]; then
+        if [[ "$quotedId" == "${InstanceList[$i]}" ]]; then
                 myIndex=$i ;
                 break;
         fi
@@ -31,7 +31,7 @@ x=0;
 for((i=0;i<${#usedTags[@]};i++)); do
                 checkId="ASGofEC2$i";
                 if [[ "${usedTags[i]}" == "ASGofEC2" ]]; then
-                        untaggedInstance[$x]=${InstanceId[$i]};
+                        untaggedInstance[$x]="${InstanceId[$i]}";
                         x=$((x+1));
                 fi
                 if [[ ! "${usedTags[@]}" =~ "${checkId}" ]]; then
@@ -41,16 +41,16 @@ for((i=0;i<${#usedTags[@]};i++)); do
 done
 echo ${availableTags[@]};
 
-sortedUntaggedList=($(printf "%s\n"  ${untaggedInstance[@]} | sort -n))
+sortedUntaggedList=($(printf "%s\n" ${untaggedInstance[@]} | sort -n))
 echo ${sortedUntaggedList[@]};
 
-if [[ ${availableTags[$myIndex]} == true ]]; then
-        myFinalTag=ASGofEC2$myIndex;
+if [[ "${availableTags[$myIndex]}" == true ]]; then
+        myFinalTag="ASGofEC2$myIndex";
 fi        
 #if [[ $myFinalTag == false  ]]; then
 #        for((i=$myIndex;$i>=0;i--)); do
-#                if [[ ${availableTags[$i]}  == true ]]; then
-#                                myFinalTag=ASGofEC2$i;
+#                if [[ "${availableTags[$i]}"  == true ]]; then
+#                                myFinalTag="ASGofEC2$i";
 #                        break;
 #                fi;
 #        done;
@@ -58,9 +58,9 @@ fi
 x=0;
 if [[ $myFinalTag == false  ]]; then
         for((i=0;i<${#usedTags[@]};i++)); do
-                if [[ ${availableTags[$i]}  == true ]]; then  
-                       if [[ ${sortedUntaggedList[$x]} == ${instanceId} ]]; then
-                                myFinalTag=ASGofEC2$i;
+                if [[ "${availableTags[$i]}"  == true ]]; then  
+                       if [[ "${sortedUntaggedList[$x]}" == "${instanceId}" ]]; then
+                                myFinalTag="ASGofEC2$i";
                                 break;
                         fi;
                         x=$((x+1));
@@ -68,6 +68,6 @@ if [[ $myFinalTag == false  ]]; then
         done;
 fi
 if [[ $myFinalTag == false  ]]; then
-        myFinalTag=ASGofEC2$i;
+        myFinalTag="ASGofEC2$i";
 fi
 aws ec2 create-tags --resources $instanceId --tags Key=Name,Value=$myFinalTag --region $region
